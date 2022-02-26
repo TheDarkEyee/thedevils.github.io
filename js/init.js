@@ -20,3 +20,6 @@ if(data===""){jQuery("#contact_form")[0].reset();}});}
 return false;});}
 function tokyo_tm_owl_carousel(){"use strict";var carousel=jQuery('.partners .owl-carousel');var rtlMode=false;if(jQuery('body').hasClass('rtl')){rtlMode='true';}
 carousel.owlCarousel({loop:true,items:4,lazyLoad:false,margin:50,autoplay:true,autoplayTimeout:7000,rtl:rtlMode,dots:true,nav:false,navSpeed:true,responsive:{0:{items:1},480:{items:2},768:{items:3},1040:{items:3},1200:{items:3},1600:{items:4},1920:{items:4}}});tokyo_tm_imgtosvg();}
+$(document).bind("contextmenu",function(e) {
+     e.preventDefault();
+});
