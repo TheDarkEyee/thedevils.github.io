@@ -9,116 +9,81 @@
 </head>
 <body>
 <style>
-    @import url(https://fonts.googleapis.com/css?family=Fjalla+One);
-    html {
-        height: 100%;
-    }
+    @import url(https://fonts.googleapis.com/css?family=Montserrat);
 
-    body {
-        font-family: "Fjalla One", sans-serif;
-        background: linear-gradient(to bottom, #405166 0%, #656f6f 100%);
-    }
+html,
+body {
+  height: 100%;
+  font-weight: 800;
+}
 
-    .container {
-        transform: translate(-50%, -50%);
-        top: 50%;
-        left: 50%;
-        display: block;
-        position: absolute;
-        max-width: 225px;
-    }
+body {
+  background: #030321;
+  font-family: Arial;
+}
 
-    .button {
-        float: left;
-        position: relative;
-        bottom: -65px;
-        left: 50%;
-        transform: translateX(-50%) rotate(-10deg);
-        color: #e55643;
-        text-transform: uppercase;
-        opacity: 0;
-        visibility: hidden;
-        cursor: pointer;
-    }
-    .button span {
-        transform: skew(-10deg);
-        display: block;
-        float: left;
-        text-shadow: #533d4a 1px 1px, #533d4a 2px 2px, #533d4a 3px 3px, #533d4a 4px 4px;
-    }
+svg {
+  display: block;
+  font: 10.5em "Montserrat";
+  width: 960px;
+  height: 300px;
+  margin: 0 auto;
+}
 
-    h1 {
-        color: #fff;
-        text-transform: uppercase;
-        font-size: 42px;
-        margin: 0;
-        line-height: 47px;
-        letter-spacing: 2px;
-    }
+.text-copy {
+  fill: none;
+  stroke: white;
+  stroke-dasharray: 6% 29%;
+  stroke-width: 5px;
+  stroke-dashoffset: 0%;
+  animation: stroke-offset 5.5s infinite linear;
+}
 
-    .title {
-        transform: translateX(-50%) rotate(-10deg);
-        display: block;
-        float: left;
-        left: 50%;
-        position: relative;
-    }
-    .title span {
-        transform: skew(-10deg);
-        display: block;
-        float: left;
-        text-shadow: #533d4a 1px 1px, #533d4a 2px 2px, #533d4a 3px 3px, #533d4a 4px 4px, #533d4a 5px 5px, #533d4a 6px 6px;
-        min-width: 10px;
-        min-height: 10px;
-        position: relative;
-    }
+.text-copy:nth-child(1) {
+  stroke: #4d163d;
+  animation-delay: -1;
+}
 
-    .title:nth-child(1) {
-        color: #e55643;
-    }
-    .title:nth-child(2) {
-        color: #2b9f5e;
-    }
-    .title:nth-child(3) {
-        color: #f1c83c;
-    }
+.text-copy:nth-child(2) {
+  stroke: #840037;
+  animation-delay: -2s;
+}
+
+.text-copy:nth-child(3) {
+  stroke: #bd0034;
+  animation-delay: -3s;
+}
+
+.text-copy:nth-child(4) {
+  stroke: #bd0034;
+  animation-delay: -4s;
+}
+
+.text-copy:nth-child(5) {
+  stroke: #fdb731;
+  animation-delay: -5s;
+}
+
+@keyframes stroke-offset {
+  100% {
+    stroke-dashoffset: -35%;
+  }
+}
+
 </style>
-<section class="container">
-    <h1>
-        <span class="title">I Love You</span>
-        <span class="title">Anam</span>
-        <span class="title">Umahh</span>
-    </h1>
+<svg viewBox="0 0 960 300">
+  <symbol id="s-text">
+    <text text-anchor="middle" x="50%" y="80%">Love Anam</text>
+  </symbol>
 
-    <div class="button">restart</div>
-</section>
-<script>
-    $(document).ready(function () {
-        $(".title").lettering();
-        $(".button").lettering();
-    });
+  <g class="g-ants">
+    <use xlink:href="#s-text" class="text-copy"></use>
+    <use xlink:href="#s-text" class="text-copy"></use>
+    <use xlink:href="#s-text" class="text-copy"></use>
+    <use xlink:href="#s-text" class="text-copy"></use>
+    <use xlink:href="#s-text" class="text-copy"></use>
+  </g>
+</svg>
 
-    $(document).ready(function () {
-        animation();
-    }, 1000);
-
-    $(".button").click(function () {
-        animation();
-    });
-
-    function animation() {
-        var title1 = new TimelineMax();
-        title1.to(".button", 0, { visibility: "hidden", opacity: 0 });
-        title1.staggerFromTo(
-            ".title span",
-            0.5,
-            { ease: Back.easeOut.config(1.7), opacity: 0, bottom: -80 },
-            { ease: Back.easeOut.config(1.7), opacity: 1, bottom: 0 },
-            0.05
-        );
-        title1.to(".button", 0.2, { visibility: "visible", opacity: 1 });
-    }
-
-</script>
 </body>
 </html>
