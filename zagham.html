@@ -1,0 +1,250 @@
+<!-- <!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Anam</title>
+</head>
+<body>
+<style>
+    @import url(https://fonts.googleapis.com/css?family=Montserrat);
+
+html,
+body {
+  height: 100%;
+  font-weight: 800;
+}
+
+body {
+  background: #030321;
+  font-family: Arial;
+}
+
+svg {
+  display: block;
+  font: 10.5em "Montserrat";
+  width: 960px;
+  height: 300px;
+  margin: 0 auto;
+}
+
+.text-copy {
+  fill: none;
+  stroke: white;
+  stroke-dasharray: 6% 29%;
+  stroke-width: 5px;
+  stroke-dashoffset: 0%;
+  animation: stroke-offset 5.5s infinite linear;
+}
+
+.text-copy:nth-child(1) {
+  stroke: #4d163d;
+  animation-delay: -1;
+}
+
+.text-copy:nth-child(2) {
+  stroke: #840037;
+  animation-delay: -2s;
+}
+
+.text-copy:nth-child(3) {
+  stroke: #bd0034;
+  animation-delay: -3s;
+}
+
+.text-copy:nth-child(4) {
+  stroke: #bd0034;
+  animation-delay: -4s;
+}
+
+.text-copy:nth-child(5) {
+  stroke: #fdb731;
+  animation-delay: -5s;
+}
+
+@keyframes stroke-offset {
+  100% {
+    stroke-dashoffset: -35%;
+  }
+}
+
+</style>
+<svg viewBox="0 0 960 300">
+  <symbol id="s-text">
+    <text text-anchor="middle" x="50%" y="80%">Anam</text>
+  </symbol>
+
+  <g class="g-ants">
+    <use xlink:href="#s-text" class="text-copy"></use>
+    <use xlink:href="#s-text" class="text-copy"></use>
+    <use xlink:href="#s-text" class="text-copy"></use>
+    <use xlink:href="#s-text" class="text-copy"></use>
+    <use xlink:href="#s-text" class="text-copy"></use>
+  </g>
+</svg>
+
+</body>
+</html>
+ -->
+<html>
+
+<head>
+
+</head>
+
+<body>
+    <div class="chart-container">
+        <canvas id="myChart" width="400" height="200"></canvas>
+        <div id="tooltip">
+            <div class="tooltip-label"></div>
+            <div class="tooltip-value">
+                <span class="color-circle"></span>
+                <span class="value"></span>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+    <script>
+        var ctx = document.getElementById("myChart").getContext("2d");
+
+        function processTooltipModel(model) {
+            if (!model.body) {
+                return;
+            }
+            const tooltip = document.getElementById('tooltip');
+            tooltip.style.left = (model.caretX) + 'px';
+            tooltip.style.top = model.caretY - 66 - 5 + 'px';
+            tooltip.style.display = 'block';
+            tooltip.querySelector('.tooltip-label').textContent = model.dataPoints[0].label;
+            tooltip.querySelector('.tooltip-value .value').textContent = '$' + model.dataPoints[0].value;
+        }
+
+        var myChart = new Chart(ctx, {
+            type: "line",
+            data: {
+                labels: ["Jan 1", "Jan 3", "Jan 5", "Jan 7", "Jan 9", "Jan 11", "Jan 13", "Jan 15"],
+                datasets: [
+                    {
+                        label: "Earnings in USD",
+                        data: [950, 1220, 1340, 1450, 1320, 1220, 1390, 1560],
+                        borderWidth: 3,
+                        fill: false,
+                        borderColor: '#3ABEFF',
+                        pointBackgroundColor: '#3ABEFF',
+                        pointRadius: 0,
+                        pointHoverRadius: 0,
+                        pointHitDetectionRadius: 35,
+                        pointBorderWidth: 2.5,
+                    },
+                ],
+            },
+            options: {
+                legend: {
+                    display: false
+                },
+                tooltips: {
+                    enabled: false,
+                    custom: processTooltipModel,
+                    intersect: false,
+                    mode: 'index'
+                },
+                scales: {
+                    yAxes: [
+                        {
+                            ticks: {
+                                beginAtZero: false,
+                                fontColor: '#999999',
+                                fontSize: 10,
+                                callback: (value, index, values) => {
+                                    if (parseInt(value) >= 1000) {
+                                        return '$' + value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                                    } else {
+                                        return '$' + value;
+                                    }
+                                }
+                            },
+                            gridLines: {
+                                display: false,
+                                drawBorder: false
+                            }
+                        },
+                    ],
+                    xAxes: [
+                        {
+                            ticks: {
+                                fontColor: '#999999',
+                                fontSize: 10
+                            },
+                            gridLines: {
+                                display: false,
+                                drawBorder: false
+                            }
+                        }
+                    ]
+                },
+            },
+        });
+    </script>
+    <style>
+        .chart-container {
+            max-width: 500px;
+            margin: 0 auto;
+            position: relative;
+            margin-top: 100px;
+        }
+
+        #tooltip {
+            position: absolute;
+            display: none;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            width: 90px;
+            transform: translateX(-50%);
+            text-align: center;
+            background: #004466;
+            border-radius: 3px;
+            box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.19);
+            color: #fff;
+        }
+
+        #tooltip .tooltip-label {
+            padding: 6px 2px;
+            color: #999999;
+            font-size: 12px;
+        }
+
+        #tooltip .tooltip-value {
+            padding: 0 2px 8px 2px;
+        }
+
+        #tooltip .tooltip-value .color-circle {
+            height: 8px;
+            width: 8px;
+            border-radius: 50%;
+            vertical-align: middle;
+            background: #3ABEFF;
+            display: inline-block;
+            margin-right: 4px;
+        }
+
+        #tooltip .tooltip-value .value {
+            font-size: 14px;
+        }
+
+        #tooltip::after {
+            content: "";
+            width: 12px;
+            height: 12px;
+            background: #3ABEFF;
+            display: block;
+            bottom: -27px;
+            border-radius: 50%;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+    </style>
+</body>
+
+</html>
