@@ -20,7 +20,20 @@
 <link rel="stylesheet" type="text/css" href="css/colors.css" />
 <link rel="stylesheet" type="text/css" href="css/style.css" />
 <!--[if lt IE 9]> <script type="text/javascript" src="js/modernizr.custom.js"></script> <![endif]-->
-
+  <script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async=""></script>
+<script>
+  window.OneSignal = window.OneSignal || [];
+  OneSignal.push(function() {
+    OneSignal.init({
+      appId: "7aff14f1-b08b-4a81-bafb-a5e4d428c5aa",
+      safari_web_id: "",
+      notifyButton: {
+        enable: true,
+      },
+      subdomainName: "devilme",
+    });
+  });
+</script>
 </head>
 <body>
 <!--  Code To Disable Double Click or View Source Code  -->
